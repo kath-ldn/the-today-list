@@ -1,0 +1,198 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f9f9f9;
+}
+
+button {
+  background: white;
+  border: none;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+}
+
+.plus {
+  background-color: #FAA6FF;
+  font-size: 1em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;;  
+  width: 20em;
+  height: 4em;
+}
+
+.plus:hover {
+  background-color: #564787;
+  color: white;  
+}
+
+#plusDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#formsDiv {
+  display: flex;
+  justify-content: center;
+}
+
+#newCategoryForm {
+  background-color: #564787;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin: 0.7em 0.7em 0.7em 0.7em;
+  color: white;
+  font-size: 12px;
+  width: 20em;
+  height: 5em;
+}
+
+#projectForm {
+  background-color: #564787;
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin: 0.7em 0.7em 0.7em 0.7em;
+  color: white;
+  font-size: 12px;
+  width: 20em;
+}
+
+.inputNewCategory {
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin: 0.3em 0.3em 0.3em 0.3em;
+}
+
+.projectForm {
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  margin: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category {
+  border: 1px solid black;
+  width: 350px;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.project {
+  border: 1px solid black;
+  width: 310px;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  background: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* CSS for priorities buttons */
+.High {
+    background-color: red;
+}
+.Very-Low{
+    background-color: #99bbff;
+    color: white;
+}
+.Low{
+    background-color: #3377ff;
+    color: white; 
+}
+.Medium{
+    background-color: #ffd11a;
+    color: white; 
+}
+.High{
+    background-color: #ff5050;
+    color: white;  
+}
+.Very-High{
+    background-color: #b30000;
+    color: white; 
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  #modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  #closeModal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  #closeModal:hover,
+  #closeModal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Modal Header */
+#modalHeader {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Modal Body */
+#modalBody {padding: 2px 16px;}
+  
+  /* Modal Footer */
+#modalFooter {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Modal Content */
+#modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
