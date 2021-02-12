@@ -23,3 +23,4 @@ For next version
     - E.g. 'new project' lighter and matching project background color.
 - Intro bubbles to show how to use.
 - 'Are you sure' pop-ups for deleting things.
+- Integrate with Firebase!!
