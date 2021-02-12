@@ -1,37 +1,73 @@
 body {
   font-family: 'Montserrat', sans-serif;
-  background: #f9f9f9;
+  background: #e0f1f7;
+  margin: 0;
+}
+
+/* *** CONTROLS HEADER AND CONTENT *** */
+h1 {
+  font-size: 14vh;
+  text-align: center;
+  color: #f9f9f9;
+  line-height: 90%;
+  letter-spacing: 0.1em;
+  margin: 0.3em;
+  font-weight: 400;
 }
 
 button {
-  background: white;
-  border: none;
-  outline: none;
   font-family: 'Montserrat', sans-serif;
 }
 
-#header {
+button:hover{
+  cursor: pointer;
+}
+
+#content {
   display: flex;
+}
+
+#headerDiv {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-}
-
-.plus {
-  background-color: #FAA6FF;
-  font-size: 1em;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  margin: 0.5em 0.5em 0.5em 0.5em;;  
-  width: 20em;
-  height: 4em;
-}
-
-.plus:hover {
-  background-color: #564787;
-  color: white;  
+  background: #25a5be;
+  align-items: center;
+  height: 100vh;
+  width: 68vh;
 }
 
 #plusDiv {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+}
+
+.plus {
+  background-color: #2587be;
+  color: #f9f9f9;
+  font-size: 1em;
+  letter-spacing: 0.2em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
+  width: 11em;
+  border: 0.5px #2596be solid;
+}
+
+.plus:hover {
+  background-color: #2596be;
+  color: white;  
+}
+
+#clearStorageDiv{
+  position: fixed;
+  bottom: 0.5%;
+}
+
+#clearStorageButton{
+  background-color: #2596be;
+  border: none;
+  color: #f9f9f9;
 }
 
 #formsDiv {
@@ -39,88 +75,217 @@ button {
   justify-content: center;
 }
 
-#newCategoryForm {
-  background-color: #564787;
+.inputNewProject {
+  padding: 0.2em 0.2em 0.2em 0.2em;
+  margin: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#newProjectForm, #taskForm {
+  background-color: #2587be;
   padding: 0.3em 0.3em 0.3em 0.3em;
   margin: 0.7em 0.7em 0.7em 0.7em;
   color: white;
   font-size: 12px;
-  width: 20em;
-  height: 5em;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 2%;
 }
 
-#projectForm {
-  background-color: #564787;
-  padding: 0.3em 0.3em 0.3em 0.3em;
-  margin: 0.7em 0.7em 0.7em 0.7em;
-  color: white;
-  font-size: 12px;
-  width: 20em;
+.submit{
+  height: fit-content;
+  margin-left: 0.3em;
+  width: 10vh;
+  min-width: 80px;
 }
 
-.inputNewCategory {
-  padding: 0.3em 0.3em 0.3em 0.3em;
+input {
+  font-family: 'Montserrat', sans-serif;
+  height: 15px;
+  width: 140px;
   margin: 0.3em 0.3em 0.3em 0.3em;
+  padding: 0.3em 0.3em 0.3em 0.3em;
 }
 
-.projectForm {
-  padding: 0.3em 0.3em 0.3em 0.3em;
+#inputProject, #inputPriority{
+  width: 152px;
   margin: 0.3em 0.3em 0.3em 0.3em;
+  padding: 0.3em 0.3em 0.3em 0.3em;
 }
+
+label {
+  padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+/* *** CONTROLS Project BOXES AND CONTAINER *** */
+
 
 #container {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
-}
-
-.category {
-  border: 1px solid black;
-  width: 350px;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  margin: 0.5em 0.5em 0.5em 0.5em;
+  justify-content: center;
 }
 
 .project {
-  border: 1px solid black;
+  border: 1px solid #a8d5e5;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.3em 1em 0.3em 1em;
+  margin: 1.5em 0.8em 0em 0.8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1%;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2),0 3px 10px 0 rgba(0,0,0,0.19);
+}
+
+.projTitle{
+  font-size: 3vh;
+  color: #f9f9f9;
+  padding: 0;
+  margin: 1vh;
+  font-weight: 400;
+}
+
+.remove{
+  background-color: #2587be;
+  color: #f9f9f9;
+  font-size: 1.9vh;
+  letter-spacing: 0.1em;
+  padding: 0.2em;
+  margin: 0.2em;
+  border: 0.5px #2596be solid;
+  border-radius: 5%;
+}
+
+.remove:hover {
+  background-color: #2596be;
+}
+
+.task {
+  border: 1px solid #e9f5f9;
   width: 310px;
   padding: 0.5em 0.5em 0.5em 0.5em;
   margin: 0.5em 0.5em 0.5em 0.5em;
   background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
 }
 
+/* *** FORMATS PROJECTS */
 
+.taskTitle {
+  font-size: 2.2vh;
+  font-weight: 600;
+  padding: 0em 0.2em 0.2em 0em;
+  margin: 0em 0.2em 0.2em 0em;
+}
 
+.toggleDescription {
+  background-color: #f9f9f9;
+  color: #1e7898;  ;
+  border: none;
+  font-weight: 600;
+  padding-left: 0;
+  padding-bottom: 0.5vh;
+  text-align: left;
+  font-size: 2vh;
+}
 
+.toggleDescription:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
 
+.description {
+  font-size: 2vh;
+  color: #1e7898;
+  padding-bottom: 1.5vh;
+}
 
+.due{
+  font-weight: 600;
+  padding-right: 1vh;
+}
 
+.dueDate{
+  font-size: 2vh;
+}
 
+.dueDateDiv{
+  display: flex;
+  flex-direction: row;
+  font-size: 2vh;
+}
 
+.helpfulDateDiv{
+  margin-left: 1vh;
+}
 
-
-/* CSS for priorities buttons */
+/* CSS for priorities */
 .High {
-    background-color: red;
+    background-color: rgb(231, 95, 95);
+    color: #f9f9f9;
+    border: 1px rgb(231, 95, 95) solid;
 }
-.Very-Low{
+.VeryLow{
     background-color: #99bbff;
-    color: white;
+    color: #f9f9f9;
+    border: 1px #99bbff solid;
 }
 .Low{
-    background-color: #3377ff;
-    color: white; 
+    background-color: #99b0da;
+    color: #f9f9f9;
+    border: 1px #99b0da solid;
 }
 .Medium{
     background-color: #ffd11a;
-    color: white; 
+    color: #f9f9f9;
+    border: 1px #ffd11a solid;
 }
-.High{
-    background-color: #ff5050;
-    color: white;  
+
+.VeryHigh{
+    background-color: #cc2727;
+    color: #f9f9f9;
+    border: 1px #cc2727 solid;
 }
-.Very-High{
-    background-color: #b30000;
-    color: white; 
+
+.priorityLabel{
+  font-size: 2vh;
+  padding-left: 0;
+  font-weight: 600;
+}
+
+.priority{
+  width: 20vh;
+  margin-top: 1vh;
+  font-size: 2vh;
+  letter-spacing: 0.1em;
+}
+
+.priority:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+.modifyDiv{
+  display: flex;
+}
+
+.modifyTask {
+  width: 25vh;
+  margin-top: 1vh;
+  margin-right: 1vh;
+  font-size: 2vh;
+  background-color: #2587be;
+  color: #f9f9f9;
+  letter-spacing: 0.1em;
+  border: 0.5px #2596be solid;
+  border-radius: 5%;
+}
+
+.pastDue{
+  color:red
 }
 
 /* The Modal (background) */
@@ -129,28 +294,31 @@ button {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
-    top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
   }
   
   /* Modal Content/Box */
   #modal-content {
-    background-color: #fefefe;
+    background-color: #2596be;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 60%; /* Could be more or less, depending on screen size */
+    position: fixed;
+    top: 100px;
   }
   
   /* The Close Button */
   #closeModal {
-    color: #aaa;
+    color: #f9f9f9;
+    background-color: transparent;
+    border: none;
     float: right;
     font-size: 28px;
+    padding-right: 13px;
     font-weight: bold;
   }
   
@@ -162,29 +330,85 @@ button {
   }
 
   /* Modal Header */
-#modalHeader {
+  #modalHeader {
     padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    background-color: #25a5be;
+  }
+
+  #modalHeaderText {
+    color: #f9f9f9;
+    padding-left: 2.5%;
   }
   
   /* Modal Body */
-#modalBody {padding: 2px 16px;}
+#modalBody { 
+  padding: 2px 16px;
+  background-color:#f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#editForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.editFormInput {
+  width: 40vw;
+  height: 2.5vh;
+}
+
+#editDescription {
+  height: 6vh;
+}
+
+#editPriorityLabel {
+  width:fit-content;
+  font-size: small;
+}
+
+#editPriorityDiv{
+  margin: auto;
+  padding-top: 0.6vh;
+  padding-bottom: 0.5vh;
+}
+
+#editPriority {
+  margin-left: 0.5vh;
+  width: 25vh;
+  height: 4vh;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#editDueDate {
+  height: fit-content;
+}
+
+#submitEdit {
+  margin-left: 0.5vh;
+  width: 20vh;
+  height: 4vh;
+  align-self: center;
+  background-color: #2587be;
+  color: #f9f9f9;
+  font-size: 2vh;
+  letter-spacing: 0.2em;
+  border: 0.5px #2596be solid;
+}
   
   /* Modal Footer */
 #modalFooter {
     padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
+    background-color:#f9f9f9;;
   }
   
   /* Modal Content */
 #modal-content {
     position: relative;
-    background-color: #fefefe;
+    background-color: #25a5be;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
@@ -196,3 +420,10 @@ button {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
   }
+
+  /* LOGO */
+  #logoImg {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 0;
+  };
