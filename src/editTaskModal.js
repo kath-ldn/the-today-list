@@ -22,7 +22,6 @@ function editEditFormContent(item){
     editDescription.value = item.description;
     let editDueDate = document.getElementById("editDueDate");
     let date = item.dueDate;
-    console.log(date);
     let displayDate = formatDate(date);
     editDueDate.value = displayDate;
     let editPriority = document.getElementById("editPriority");

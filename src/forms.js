@@ -1,7 +1,7 @@
 // *** MODULE MAKES AND DISPLAYS NEW project AND task FORMS *** //
 import { priorities } from './createTasks.js';
 import { newProject } from './createTasks.js';
-import { projects } from './createTasks.js';
+import { projects } from './projectData.js';
 import { formDataToTask } from './createTasks.js';
 
 // form to add new project

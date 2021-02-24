@@ -1,8 +1,9 @@
 import { showEditForm } from './editTaskModal.js';
-import { addLocalStorage } from './localStorage.js';
 import { formatDistanceStrict } from 'date-fns'
-import { projects, tasks } from './projectSampleData'
+import { projects, tasks } from './projectData'
 import { editTask, changePriority } from './editTasks'
+import { db } from './index.js';
+import firebase from "firebase/app";
 
 //array of project colors
 let colors = ['#3ba1c5', '#66b6d2', '#51abcb', '#7cc0d8'];
@@ -10,8 +11,16 @@ let colors = ['#3ba1c5', '#66b6d2', '#51abcb', '#7cc0d8'];
 //array to hold priority levels
 let priorities = ["Very Low", "Low", "Medium", "High", "Very High"];
 
+//sort this out - not accounted for duplication
+function getRandomId(){
+    let randomId = Math.floor((Math.random() * 1000000000) + 1);
+    randomId = randomId.toString();
+    return randomId;
+}
+
 //construtor to create task objects
-function CreateTask(title, project, description, dueDate, priority) {
+function CreateTask(id, title, project, description, dueDate, priority) {
+    this.id = id,
     this.title = title,
     this.project = project,
     this.description = description,
@@ -25,7 +34,18 @@ function removeProject(index, project){
     let projectDiv = document.getElementById("project" + index);
     parentDiv.removeChild(projectDiv);
     projects.splice(projects.indexOf(project), 1);
-    addLocalStorage(projects);
+    //removes from Firebase storage
+    let user = firebase.auth().currentUser;
+    let uid;
+    if(user != null){
+        uid = user.uid;
+        db.collection("users").doc(uid).update({
+            projects: firebase.firestore.FieldValue.arrayRemove(project)
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    };
 };
 
 // function to show/hide tasks
@@ -109,7 +129,15 @@ function removeTask(item, index, projectDiv) {
     let taskDiv = document.getElementById("task" + index);
     parentDiv.removeChild(taskDiv);
     tasks.splice(tasks.indexOf(item), 1);
-    addLocalStorage(tasks);
+    let user = firebase.auth().currentUser;
+    let uid;
+    if(user != null){
+        uid = user.uid;
+        db.collection("users").doc(uid).collection('tasks').doc(item.id).delete()
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    }
 };
 
 function hideDescription(element) {
@@ -183,7 +211,7 @@ function makeTaskDivs(item) {
     due.textContent = "Due "
     dueDateDiv.appendChild(due);
     dueDate.setAttribute("id", "dueDate" + tasks.indexOf(item));
-    let date = new Date(item.dueDate)
+    let date = new Date(item.dueDate);
     dueDate.textContent = date.toDateString();
     helpfulDateDiv.setAttribute("id", "helpfulDateDiv" + tasks.indexOf(item));
     
@@ -259,17 +287,34 @@ function displayAllTasks() {
 
 function addTaskToArray(newTask) {
     tasks.push(newTask);
-    addLocalStorage(tasks);
+    let user = firebase.auth().currentUser;
+    let uid;
+    if(user != null){
+        uid = user.uid;
+        db.collection("users").doc(uid).collection('tasks').doc(newTask.id).set({
+            "id": newTask.id,
+            "title": newTask.title,
+            "project": newTask.project,
+            "description": newTask.description,
+            "dueDate": newTask.dueDate,
+            "priority": newTask.priority
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    }
     makeTaskDivs(newTask);
 };
 
 function formDataToTask() {
+    event.preventDefault();
+    let id = getRandomId();
     let title = taskForm.title.value;
     let project = taskForm.inputProject.value;
     let description = taskForm.description.value;
-    let dueDate = taskForm.inputDueDate.value;
+    let dueDate = new Date(taskForm.inputDueDate.value);
     let priority = taskForm.inputPriority.value;
-    let newTask = new CreateTask(title, project, description, dueDate, priority);
+    let newTask = new CreateTask(id, title, project, description, dueDate, priority);
     addTaskToArray(newTask);
     taskForm.reset();
 };
@@ -291,7 +336,20 @@ function newProject() {
     } else {
     event.preventDefault();
     projects.push(newProject);
-    addLocalStorage(projects);
+    //adds to Firebase storage
+    let user = firebase.auth().currentUser;
+    let uid;
+    if(user != null){
+        uid = user.uid;
+        db.collection("users").doc(uid).update({
+            projects: firebase.firestore.FieldValue.arrayUnion(newProject)
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    };
+    // FOR EACH NEW USER WILL NEED TO CREATE ARRAY USING SET AFTER PROJECT ID
+
     let index = projects.indexOf(newProject);
     displayProject(index);
     addProjectToDropdown(index);
@@ -306,3 +364,6 @@ export { displayAllTasks }
 export { newProject }
 export { formDataToTask }
 export { getHelpfulDate }
+export { addTaskToArray }
+export { CreateTask }
+export { getRandomId }
