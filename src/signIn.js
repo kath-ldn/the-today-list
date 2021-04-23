@@ -1,20 +1,7 @@
-import firebase from 'firebase'
-require('firebase/auth')
+import firebase from 'firebase';
+require('firebase/auth');
 import { provider } from './index.js';
-import { restoreData } from './restoreData.js';
 import { projects, tasks } from './projectData.js';
-
-function togglePlusBtns(toggle) {
-    let newProjBtn = document.getElementById("plusProject");
-    let newTaskBtn = document.getElementById("plusTask");
-    if(toggle === 'hide'){
-        plusTask.style.display = "none";
-        plusProject.style.display = "none";
-    } else if(toggle === 'show') {
-        plusTask.style.display = "block";
-        plusProject.style.display = "block";
-    }
-};
 
 function getProfilePicUrl() {
     return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
@@ -30,7 +17,6 @@ function signIn() {
       var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      togglePlusBtns('show')
     }).catch((error) => {
       // Handle Errors here.
       var errorCode = error.code;
@@ -57,9 +43,8 @@ function makeSignInBtn(){
 
 function signOutData(){
     let parentDiv = document.getElementById("container");
-    for(let i = 0; i < projects.length; i++){
-        let projectDiv = document.getElementById("project" + i);
-        parentDiv.removeChild(projectDiv);
+    while(parentDiv.firstChild){
+        parentDiv.removeChild(parentDiv.firstChild);
     }
     projects = [];
     tasks = [];
@@ -80,7 +65,6 @@ function makeSignOutBtn(){
         document.getElementById("signInButton").style.display = "block";
         userPicElement.style.display = "none";
         userNameElement.style.display = "none";
-        togglePlusBtns('hide')
     });
     signUpDiv.appendChild(signOutButton);
 };
@@ -90,13 +74,10 @@ function makeSignOutBtn(){
 function updateUserDetails() {
     let userPicElement = document.getElementById('userPic');
     let userNameElement = document.getElementById('userName');
-
     var profilePicUrl = getProfilePicUrl();
     var userName = getUserName();
-    
     userPicElement.style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(profilePicUrl) + ')';
     userNameElement.textContent = userName;
-
     userPicElement.style.display = "block";
     userNameElement.style.display = "block";
 
@@ -116,4 +97,4 @@ function getUserName() {
     return firebase.auth().currentUser.displayName;
 };
 
-export { togglePlusBtns, signIn, makeSignInBtn, makeSignOutBtn, updateUserDetails } 
+export { signIn, makeSignInBtn, makeSignOutBtn, updateUserDetails } 

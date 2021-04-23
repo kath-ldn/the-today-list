@@ -5,7 +5,7 @@ module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
-    filename: 'main.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   //target: 'node', // in order to ignore built-in modules like path, fs, etc.
@@ -15,11 +15,14 @@ module.exports = {
   //})], // in order to ignore all modules in node_modules folder
   module: {
     rules: [
+        {
+            test: /\.css$/i,
+            use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        use: { loader: 'url-loader'
-        }
-      }
+        type: 'asset/resource'
+        },
     ]
   }
 };

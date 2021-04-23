@@ -1,0 +1,597 @@
+/* Reset CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Main CSS */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(50, 50, 50);
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#headerDiv {
+    width: 100vw;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid #7b57a5;
+}
+
+#logoImg {
+    max-width: 100px;
+    max-height: 100px;
+    padding: 0;
+}
+
+h1 {
+  font-size: 40px;
+  color: #7b57a5;
+  letter-spacing: 2px;
+  font-weight: 400;
+}
+
+button {
+    font-family: 'Montserrat', sans-serif;
+    background:none;
+    border: none;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#plusProject{
+    color: #7b57a5;
+    font-size: 16px;
+    padding: 4px;
+    background: none;
+    border: none;
+}
+
+#plusProject:hover{
+    font-weight: bold;
+    font-size: 18px;
+    padding: 0;
+}
+
+#formsDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+}
+  
+#newProjectForm {
+    width: 175px;
+    display: none;
+}
+  
+#inputNewProject{
+    width:100%;
+}
+
+#submitProject{
+    width: 100%;
+    text-align: center;
+}
+
+.submit{
+   background: none;
+   border: none;
+   height: 20px;
+   color: #7b57a5;
+}
+
+.submit:hover{
+    font-weight: bold;
+}
+
+#userContainer {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    align-items: center;
+    justify-items: center;
+}
+  
+#userPic {
+    width: 40px;
+    height: 40px;
+    background-size: 40px;
+    border-radius: 20px;
+}
+    
+#userName {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+#signOutButton, #signInButton{
+    background: none;
+    border: none;
+    color: #7b57a5;
+}
+
+#signOutButton:hover, #signInButton:hover{
+    font-weight: bold;
+}
+
+/* Projects */
+#container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, auto);
+    grid-auto-flow: dense;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.projectWrapper{
+    width: fit-content;
+    height: fit-content;
+}
+
+.project {
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.projHeader{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+}
+  
+.remove, .hideShow{
+    border: none;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+.remove{
+    background: url(./assets/images/trash.png) no-repeat;
+    background-size: cover;
+}
+.hideShow{
+    background: url(./assets/images/openeye.png) no-repeat;
+    background-size: cover;
+}
+  
+.remove:hover, .hideShow:hover {
+    opacity: 95%;
+    width: 31px;
+    height: 31px;
+    margin: 3px;
+}
+
+input {
+    font-family: 'Montserrat', sans-serif;
+    height: 15px;
+}
+
+.projTitle{
+    font-size: 22px;
+}
+
+.taskContainer{
+    width: 97%;
+    margin: 0;
+    padding: 0;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 15px 0;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+
+.taskTitle {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 4px;
+}
+
+.toggleDescription {
+    border: none;
+    text-align: left;
+    background: none;
+    width: fit-content;
+    font-size: 14px;
+    padding: 0;
+    padding-bottom: 8px;
+    color: #555555;
+}
+
+.description {
+    font-size: 14px;
+    padding-bottom: 8px;
+}
+
+.dueDateDiv{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-bottom: 8px;
+}
+
+.due{
+    font-weight: 600;
+    width: fit-content;
+}
+
+.dueDate{
+    font-size: 14px;
+    width: fit-content;
+}
+
+.helpfulDateDiv{
+    margin-left: 3px;
+    width: fit-content;
+}
+
+.taskFooter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+}
+
+.priorityLabel{
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 4px;
+}
+
+.priority{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.High {
+    color: rgb(231, 95, 95);
+    background: none;
+    border: none;
+}
+.VeryLow{
+    color: #99bbff;
+    background: none;
+    border: none;
+}
+.Low{
+    color: #99b0da;
+    background: none;
+    border: none;
+}
+.Medium{
+    color: #ffd11a;
+    background: none;
+    border: none;
+}
+
+.VeryHigh{
+    color: #cc2727;
+    background: none;
+    border: none;
+}
+
+.pastDue{
+    color:red
+}
+
+.modifyTask {
+  background: none;
+  border: none;
+  width: 20px;
+  height: 20px;
+}
+
+#eTask{
+    background: url(./assets/images/pencil.png);
+    background-size: cover;
+}
+
+#rTask{
+    background: url(./assets/images/trashDark.png);
+    background-size: cover;
+}
+
+.plusTaskDiv{
+    height: 18px;
+    width: fit-content;
+}
+
+.plus{
+    color: #7b57a5;
+    font-size: 16px;
+}
+
+.taskFormContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.taskForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    align-items: center;
+    justify-content: center;
+    margin-top: -24px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.taskFormHeader{
+    font-size: 16px;
+    color: #7b57a5;
+    padding-bottom: 5px;
+}
+
+.taskForm input, .taskForm select{
+    height: 25px;
+    margin: 0px 0px 5px 0px!important;
+    width: 60%;
+}
+
+.taskForm textarea{
+    height: 60px;
+    margin: 0px 0px 5px 0px!important;
+    width: 60%;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #7b57a5;
+}
+
+.close{
+    align-self: flex-end;
+    color: #7b57a5;
+    font-size: 18px;
+    padding: 5px 5px 0 0;
+}
+
+#inputProject{
+    display: none;
+}
+
+#inputDueDate{
+    height: auto;
+    width: 60%;
+}
+
+.priorityDiv{
+    width: 100%;
+}
+
+#inputPriority{
+    width: 65%;
+    margin-left: 5px
+}
+
+/* Edit task modal */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.7); 
+}
+  
+#modal-content {
+    position: relative;
+    background: #FFF;
+    padding: 15px;
+    min-width: 300px;
+    width: 35%;
+    position: fixed;
+    top: 10%;
+    left: 32.5%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    box-sizing: border-box;
+}
+  
+#closeModal {
+    color: #555555;
+    background-color: transparent;
+    border: none;
+    float: right;
+    font-size: 22px;
+    padding-right: 5px;
+}
+  
+#closeModal:hover,
+#closeModal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modalHeader {
+    padding: 2px;
+}
+
+#modalHeaderText {
+    color: #555555;
+    text-align: center;
+}
+
+#modalBody { 
+    padding: 2px 16px;
+    background-color:#ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#editForm {
+    display: flex;
+    flex-direction: column;
+    width: 98%
+}
+
+.editFormInput {
+    height: 30px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+#editDescription {
+    height: 60px;
+    margin-bottom: 5px;
+    overflow: scroll;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#editPriorityDiv{
+    margin-bottom: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#editPriorityLabel {
+    width:fit-content;
+    font-size: 12px;
+    height: fit-content;
+    margin-right: 10px;
+}
+
+#editPriority {
+    height: 30px;
+    font-family: 'Montserrat', sans-serif;
+    width: 50%
+}
+
+#editDueDate {
+    height: 30px;
+}
+
+#submitEdit {
+    color: #7b57a5;
+    margin-bottom: 5px;
+    background: none;
+    border: none;
+}
+  
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/*** PRIVACY POLICY ***/
+
+#privacy-policy-link {
+  font-size: 14px;
+  color: rgb(50, 50, 50);
+  height: fit-content;
+  padding: 0;
+  position: fixed;
+  bottom: 12px;
+  left: 49%;
+  font-weight: 400;
+}
+
+#privacy-policy-link:hover {
+  cursor: pointer;
+}
+
+#privacy-policy-div{
+  border: 1px solid rgb(50, 50, 50);
+  width: 70%;
+  position: fixed;
+  bottom: 40px;
+  z-index: 10;
+  left: 15%;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  display:none;
+}
+
+#privacy-policy-div h4{
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+#privacy-policy-div p{
+    line-height: 14px;
+}

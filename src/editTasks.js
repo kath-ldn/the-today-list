@@ -1,5 +1,5 @@
 import { getHelpfulDate, priorities } from './createTasks.js';
-import { projects, tasks } from './projectData';
+import { tasks } from './projectData';
 import firebase from "firebase/app";
 import { db } from './index.js';
 
@@ -14,10 +14,10 @@ function editTaskObject(objectLoc){
         task.description = editForm.editDescription.value;
     };
     if (editForm.editDueDate.value !== "") {
-        task.dueDate = editForm.editDueDate.value;
+        task.dueDate = new Date(editForm.editDueDate.value);
     } else {
         let date = new Date(tasks[objectLoc].dueDate)
-        task.dueDate = date.toDateString()
+        task.dueDate = date;
     }
     task.priority = editForm.editPriority.value;
     
@@ -84,18 +84,18 @@ function updatePriority(task){
 function changePriority(item, priorityBtn) {
     let priorityIndex = priorities.indexOf(item.priority);
     if(priorityIndex === 4) {
-        priorityBtn.textContent = priorities[0];
         item.priority = priorities[0];
         priorityBtn.setAttribute("class", priorities[0]);
         priorityBtn.classList.add("priority");
         updatePriority(item);
+        priorityBtn.textContent = priorities[0];
     } else {
         let newIndex = priorities[priorityIndex + 1];
-        priorityBtn.textContent = newIndex; 
         priorityBtn.setAttribute("class", newIndex)
         priorityBtn.classList.add("priority");
         item.priority = newIndex;
         updatePriority(item);
+        priorityBtn.textContent = newIndex; 
     }
  };
 

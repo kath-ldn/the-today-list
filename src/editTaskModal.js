@@ -92,8 +92,7 @@ function editTaskModal(item, index){
     editPriorityLabel.setAttribute("id", "editPriorityLabel");
     editPriorityLabel.textContent = "Priority";
 
-    let editDescription = document.createElement("input"); 
-    editDescription.setAttribute("type", "text");
+    let editDescription = document.createElement("textarea"); 
     editDescription.setAttribute("name", "editDescription");
     editDescription.setAttribute("class", "editFormInput");
     editDescription.setAttribute("id", "editDescription");
@@ -120,23 +119,14 @@ function editTaskModal(item, index){
     editPriorityDiv.appendChild(editPriority);
     editForm.appendChild(editPriorityDiv);   
     editForm.appendChild(submitEdit)
-
-    let modalFooter = document.createElement("div");
-    modalFooter.setAttribute("id", "modalFooter");
-
-    let modalFooterText = document.createElement("h3");
-    modalFooterText.setAttribute("id", "modalFooterText");
-
     editFormModal.appendChild(modalContent);
     modalContent.appendChild(modalHeader);
     modalContent.appendChild(closeModal);
     modalContent.appendChild(modalHeaderText);
     modalContent.appendChild(modalBody);
     modalBody.appendChild(editForm);
-    modalContent.appendChild(modalFooter);
-    modalFooter.appendChild(modalFooterText);
 
-    document.getElementById("container").appendChild(editFormModal);
+    document.getElementById("content").appendChild(editFormModal);
 };
 
 export { showEditForm }

@@ -10,10 +10,9 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import { makeSignOutBtn, updateUserDetails, togglePlusBtns } from './signIn';
-import { restoreData } from './restoreData.js';
-import { projects, tasks, createSampleData } from './projectData.js';
-
+import { makeSignOutBtn, updateUserDetails } from './signIn';
+import { createSampleData } from './projectData.js';
+import './style.css';
 
 //firebase config
 const firebaseConfig = {
@@ -36,19 +35,17 @@ const firebaseConfig = {
 var provider = new firebase.auth.GoogleAuthProvider();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      var uid = user.uid;
-      console.log('signed in')
-      document.getElementById("signInButton").style.display = "none";
-      makeSignOutBtn();
-      updateUserDetails();
-      createSampleData();
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+        document.getElementById("signInButton").style.display = "none";
+        makeSignOutBtn();
+        updateUserDetails();
+        createSampleData();
+        document.getElementById("plusProject").style.display = "block";
       // ...
     } else {
-      // User is signed out
-      console.log('signed out')
-      togglePlusBtns('hide')
+        document.getElementById("plusProject").style.display = "none";
     }
 }); 
   

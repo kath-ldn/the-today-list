@@ -4,19 +4,45 @@ import { projects, tasks } from './projectData'
 import { editTask, changePriority } from './editTasks'
 import { db } from './index.js';
 import firebase from "firebase/app";
+import { makeTaskForm } from './forms.js';
 
 //array of project colors
-let colors = ['#3ba1c5', '#66b6d2', '#51abcb', '#7cc0d8'];
+let colors = ["#ff6666","#777da7","#fcca46","#62bec1","#6eeb83","#48bf84","#3a2449","#2ec4b6","#a7cdbd"];
 
 //array to hold priority levels
 let priorities = ["Very Low", "Low", "Medium", "High", "Very High"];
 
-//sort this out - not accounted for duplication
+function checkRandomId(randomId){
+    let user = firebase.auth().currentUser;
+    if(user != null){
+        let uid;
+        uid = user.uid;
+        db.collection("users").doc(uid).collection('tasks').doc(randomId).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                return false;
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                return true;
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+            return false;
+        });
+    }
+}; 
+
 function getRandomId(){
-    let randomId = Math.floor((Math.random() * 1000000000) + 1);
-    randomId = randomId.toString();
+    let unique = false;
+    let randomId;
+    while(unique === false){
+        randomId = Math.floor((Math.random() * 1000000000) + 1);
+        randomId = randomId.toString();
+        unique = checkRandomId(randomId);
+    };
     return randomId;
-}
+};
 
 //construtor to create task objects
 function CreateTask(id, title, project, description, dueDate, priority) {
@@ -29,9 +55,10 @@ function CreateTask(id, title, project, description, dueDate, priority) {
 };
 
 // function to delete project
+//must add way to delete all tasks too
 function removeProject(index, project){
     let parentDiv = document.getElementById("container");
-    let projectDiv = document.getElementById("project" + index);
+    let projectDiv = document.getElementById("projectWrapper" + index);
     parentDiv.removeChild(projectDiv);
     projects.splice(projects.indexOf(project), 1);
     //removes from Firebase storage
@@ -48,66 +75,91 @@ function removeProject(index, project){
     };
 };
 
-// function to show/hide tasks
-function hideShowTasks(index, project){
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].project === project) {
-            let x = document.getElementById("task" + i)
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-        }
-    }
+function toggleDisplay(element){
+    (element.style.display === "none") ? element.style.display = "block" : element.style.display = "none";
 };
 
 //function to display project
 function displayProject(i){
+    let item = projects[i];
+    let index = i;
+    let projectWrapper = document.createElement("div");
+    projectWrapper.setAttribute("class", "projectWrapper");
+    projectWrapper.setAttribute("id", "projectWrapper" + i);
+    //projectdiv
     let project = document.createElement("div");
     project.setAttribute("class", "project");        
     project.setAttribute("id", "project" + i);
-    project.style.backgroundColor = (colors[i]) ? colors[i] : colors[0];
+    let random = Math.floor(Math.random() * 10);
+    let randomColor = (colors[random]) ? colors[random] : colors[0];
+    project.style.border = "2px solid" + randomColor;
+    let projHeader = document.createElement("div");
+    projHeader.setAttribute("class", "projHeader");
+    project.appendChild(projHeader);
     //title
     let projTitle = document.createElement("h2");
     projTitle.setAttribute("class", "projTitle");  
     projTitle.textContent = projects[i];
-    project.appendChild(projTitle);
-    //buttons to edit and remove projects
-    let projEdit = document.createElement("div");
-    projEdit.setAttribute("class", "projEdit");
-    project.appendChild(projEdit);
+    projTitle.style.color = randomColor;
+    projHeader.appendChild(projTitle);
+    //buttons to manag project
+    let projActions = document.createElement("div");
+    projActions.setAttribute("class", "projActions");
+    projHeader.appendChild(projActions);
+    //button to hide/show tasks
+    const hideShow = document.createElement('button');
+    hideShow.classList.add("hideShow");
+    hideShow.setAttribute("id", "hideShow", + projects.indexOf(item));
+    projActions.appendChild(hideShow);
+    //remove project
     const removeProjBtn = document.createElement('button');
-    removeProjBtn.textContent = "Delete Project";
     removeProjBtn.classList.add("remove");
-    let item = projects[i];
-    let index = i;
     removeProjBtn.setAttribute("id", "rProj", + projects.indexOf(item));
-    projEdit.appendChild(removeProjBtn);
+    projActions.appendChild(removeProjBtn);
     removeProjBtn.addEventListener('click', () => {
         removeProject(index, item);
     });
-    //button to hide/show tasks
-    const hideShow = document.createElement('button');
-    hideShow.textContent = "Hide/Show Tasks";
-    hideShow.classList.add("remove");
-    hideShow.setAttribute("id", "hideShow", + projects.indexOf(item));
-    projEdit.appendChild(hideShow);
+    //creates container for tasks
+    let taskContainer = document.createElement("div");
+    taskContainer.setAttribute("class", "taskContainer");        
+    taskContainer.setAttribute("id", "taskContainer" + i);
+    //event listener to hide task container
     hideShow.addEventListener('click', () => {
-        hideShowTasks(index, item);
+        toggleDisplay(taskContainer);
+    });
+    project.appendChild(taskContainer);
+
+    //plusTask button and div
+    const plusTaskDiv = document.createElement("div");
+    plusTaskDiv.setAttribute("id", "plusTaskDiv" + i);
+    plusTaskDiv.classList.add("plusTaskDiv")
+    project.appendChild(plusTaskDiv);
+    //creates plusTask button
+    const plusTask = document.createElement("button");
+    plusTask.setAttribute("id", "plusTask" + i);
+    plusTask.setAttribute("class", "plus");
+    plusTask.textContent = "New Task";
+    plusTaskDiv.appendChild(plusTask);
+    projectWrapper.appendChild(project);
+
+    let taskFormContainer = document.createElement("div");
+    projectWrapper.appendChild(taskFormContainer);
+    taskFormContainer.setAttribute("class", "taskFormContainer");
+    taskFormContainer.setAttribute("id", "taskFormContainer" + i);
+    makeTaskForm(item, index, taskFormContainer);
+    plusTask.addEventListener("click", () => {   
+        plusTask.style.display = "none";
+        taskFormContainer.style.display = "flex";
     });
     let container = document.getElementById("container");
-    container.appendChild(project);
+    container.appendChild(projectWrapper);
 };
 
 //function to display task projects on page
 function displayProjectDivs() {
-    let container = document.getElementById("container");
-    let div = document.createElement("div");
-    container.appendChild(div);
-        for(let i = 0; i < projects.length; i++) {
-            displayProject(i);
-        };
+    for(let i = 0; i < projects.length; i++) {
+        displayProject(i);
+    };
 };
 
 //finds place of task project in project array
@@ -119,7 +171,7 @@ function findProject(object) {
 //finds correct project div for task div
 function findProjectDiv(object) {
     let i = findProject(object);
-    let parentProject = document.getElementById("project" + i);
+    let parentProject = document.getElementById("taskContainer" + i);
     return parentProject;
 };
 
@@ -138,13 +190,6 @@ function removeTask(item, index, projectDiv) {
             console.error("Error adding document: ", error);
         });
     }
-};
-
-function hideDescription(element) {
-    if (element.style.display === "none") { 
-        element.style.display = "block";
-    } else {element.style.display = "none";
-    } 
 };
 
 function changeDescription(element) {
@@ -194,17 +239,16 @@ function makeTaskDivs(item) {
     descriptionButton.textContent = "Show Description";
     descriptionButton.setAttribute("class", "toggleDescription");
     descriptionButton.setAttribute("id", "descriptionButton" + index);
-    descriptionButton.addEventListener("click", () => {
-        hideDescription(descriptionDiv);
-        changeDescription(descriptionButton);
-    })
     taskDiv.appendChild(descriptionButton);
     descriptionDiv.textContent = item.description;
     descriptionDiv.setAttribute("class", "description");
     descriptionDiv.setAttribute("id", "description" + tasks.indexOf(item));
     descriptionDiv.style.display = "none"
     taskDiv.appendChild(descriptionDiv);
-
+    descriptionButton.addEventListener("click", () => {
+            toggleDisplay(descriptionDiv);
+            changeDescription(descriptionButton);
+        })
     dueDateDiv.setAttribute("class", "dueDateDiv");
     let due = document.createElement("div");
     due.setAttribute("class", "due");
@@ -224,15 +268,15 @@ function makeTaskDivs(item) {
     dueDateDiv.appendChild(helpfulDateDiv);
     taskDiv.appendChild(dueDateDiv);
     
-    let priorityDiv = document.createElement("div");
-    priorityDiv.setAttribute("class", "priorityDiv");
-    taskDiv.appendChild(priorityDiv);
+    let taskFooter = document.createElement("div");
+    taskFooter.setAttribute("class", "taskFooter");
+    taskDiv.appendChild(taskFooter);
 
     let priorityLabel = document.createElement("Label");
     priorityLabel.setAttribute("for", priorityBtn);
     priorityLabel.setAttribute("class", "priorityLabel");
     priorityLabel.textContent = "Priority";
-    priorityDiv.appendChild(priorityLabel);
+    taskFooter.appendChild(priorityLabel);
 
     priorityBtn.textContent = item.priority;
     priorityBtn.classList.add("priority");
@@ -240,37 +284,34 @@ function makeTaskDivs(item) {
     priorityClass = priorityClass.replace(/\s/g, '');
     priorityBtn.classList.add(priorityClass);
     priorityBtn.setAttribute("id", "priority" + tasks.indexOf(item));
-    priorityDiv.appendChild(priorityBtn); 
+    taskFooter.appendChild(priorityBtn); 
     priorityBtn.addEventListener('click', () => {
         changePriority(item, priorityBtn);
     });
-
-    let modifyDiv = document.createElement("div");
-    modifyDiv.setAttribute("class", "modifyDiv");
-    editBtn.textContent = "Edit Task";
     editBtn.setAttribute("class", "modifyTask")
     editBtn.setAttribute("id", "eTask", + tasks.indexOf(item));
-    modifyDiv.appendChild(editBtn);
+    taskFooter.appendChild(editBtn);
     editBtn.addEventListener('click', () => {
         showEditForm(item, index);
         let submitEdit = document.getElementById("submitEdit");
         submitEdit.addEventListener('click', () => {
             editTask(item, index);
             hideModal();
+            title.textContent = item.title;
+            descriptionDiv.textContent = item.description;
+            dueDate.textContent = item.date.toDateString();
+            helpfulDateDiv.textContent = helpfulDate[0];
+            priorityBtn.textContent = item.priority;
         })
     });
-    removeBtn.textContent = "Delete Task";
     removeBtn.setAttribute("class", "modifyTask")
     removeBtn.setAttribute("id", "rTask", + tasks.indexOf(item));
     let projectDiv = findProjectDiv(item);
-    modifyDiv.appendChild(removeBtn);
+    taskFooter.appendChild(removeBtn);
     removeBtn.addEventListener('click', () => {
         removeTask(item, index, projectDiv);
     });
-    taskDiv.appendChild(modifyDiv);
-
-    let parentDiv = findProjectDiv(item);
-    parentDiv.appendChild(taskDiv);
+    projectDiv.appendChild(taskDiv);
 };
 
 function hideModal() {
@@ -306,25 +347,17 @@ function addTaskToArray(newTask) {
     makeTaskDivs(newTask);
 };
 
-function formDataToTask() {
+function formDataToTask(taskForm, index, item){
     event.preventDefault();
     let id = getRandomId();
     let title = taskForm.title.value;
-    let project = taskForm.inputProject.value;
+    let project = item;
     let description = taskForm.description.value;
     let dueDate = new Date(taskForm.inputDueDate.value);
     let priority = taskForm.inputPriority.value;
     let newTask = new CreateTask(id, title, project, description, dueDate, priority);
     addTaskToArray(newTask);
     taskForm.reset();
-};
-
-function addProjectToDropdown(index) {
-    let inputProject = document.getElementById("inputProject");
-    let option = document.createElement("option");
-    option.value = projects[index];
-    option.text = projects[index];
-    inputProject.appendChild(option);
 };
 
 function newProject() {
@@ -348,11 +381,8 @@ function newProject() {
             console.error("Error adding document: ", error);
         });
     };
-    // FOR EACH NEW USER WILL NEED TO CREATE ARRAY USING SET AFTER PROJECT ID
-
     let index = projects.indexOf(newProject);
     displayProject(index);
-    addProjectToDropdown(index);
     };
 };
 
@@ -367,3 +397,4 @@ export { getHelpfulDate }
 export { addTaskToArray }
 export { CreateTask }
 export { getRandomId }
+export { toggleDisplay }

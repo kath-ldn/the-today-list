@@ -1,8 +1,5 @@
 // *** MODULE MAKES AND DISPLAYS NEW project AND task FORMS *** //
-import { priorities } from './createTasks.js';
-import { newProject } from './createTasks.js';
-import { projects } from './projectData.js';
-import { formDataToTask } from './createTasks.js';
+import { priorities, newProject, formDataToTask, toggleDisplay } from './createTasks.js';
 
 // form to add new project
 //delete any classes and IDs not being used
@@ -28,6 +25,7 @@ function makeProjectForm() {
     submitProject.setAttribute("value", "Submit");
     submitProject.addEventListener('click', () => {
         newProject();
+        toggleDisplay(newProjectForm);
         });
 
     document.getElementById("formsDiv").appendChild(newProjectForm);
@@ -35,42 +33,38 @@ function makeProjectForm() {
     newProjectForm.appendChild(submitProject);
 };
 
+//annoying workaround as closing was very glitchy
+function closeTaskForm(i){
+    console.log(i);
+    let taskFormContainer = document.getElementById("taskFormContainer" + i);
+    taskFormContainer.style.display = "none";
+    let plusTask = document.getElementById("plusTask" + i);
+    plusTask.style.display = "block";
+};
+
 // form to add new task
-function makeTaskForm() {
+function makeTaskForm(item, index, cont) {
     let form = document.createElement("form");
     form.setAttribute("name", "taskForm");
     form.setAttribute("class", "taskForm");
-    form.setAttribute("id", "taskForm");
+    form.setAttribute("id", "taskForm" + index);
+
+    let heading = document.createElement("h3");
+    heading.setAttribute("class", "taskFormHeader");
+    heading.textContent = "New Task";
 
     let inputTitle = document.createElement("input"); 
     inputTitle.setAttribute("type", "text");
     inputTitle.setAttribute("name", "title");
-    inputTitle.setAttribute("class", "taskForm");
-    inputTitle.setAttribute("id", "title");
+    inputTitle.setAttribute("id", "title" + index);
     inputTitle.setAttribute("placeholder", "Title");
 
-    let inputProject = document.createElement("select");
-    inputProject.setAttribute("name", "inputProject");
-    inputProject.setAttribute("id", "inputProject");
-    inputProject.setAttribute("class", "taskForm");
-    inputProject.setAttribute("placeholder", "Project");
-
-    for (let i = 0; i < projects.length; i++) {
-        let option = document.createElement("option");
-        option.value = projects[i];
-        option.text = projects[i];
-        inputProject.appendChild(option);
-     };
-
-     let inputProjectLabel = document.createElement("Label");
-     inputProjectLabel.setAttribute("for", inputProject);
-     inputProjectLabel.setAttribute("class", "taskForm");
-     inputProjectLabel.textContent = "Project";
+    let priorityDiv = document.createElement("div");
+    priorityDiv.classList.add("taskPriorityDiv");
 
     let inputPriority = document.createElement("select");
     inputPriority.setAttribute("name", "inputPriority");
-    inputPriority.setAttribute("id", "inputPriority");
-    inputPriority.setAttribute("class", "taskForm");
+    inputPriority.setAttribute("id", "inputPriority" + index);
     inputPriority.setAttribute("placeholder", "Priority");
 
     for (let i = 0; i < priorities.length; i++) {
@@ -82,44 +76,50 @@ function makeTaskForm() {
 
     let inputPriorityLabel = document.createElement("Label");
     inputPriorityLabel.setAttribute("for", inputPriority);
-    inputPriorityLabel.setAttribute("class", "taskForm");
     inputPriorityLabel.setAttribute("class", "label");
-    inputPriorityLabel.textContent = "Task Priority";
+    inputPriorityLabel.textContent = "Priority";
 
-    let inputDescription = document.createElement("input");
-    inputDescription.setAttribute("type", "text");
+    let inputDescription = document.createElement("textarea");
     inputDescription.setAttribute("name", "description");
-    inputDescription.setAttribute("class", "taskForm");
-    inputDescription.setAttribute("id", "description");
-    inputDescription.setAttribute("placeholder", "Description");
+    inputDescription.setAttribute("id", "description" + index);
+    inputDescription.setAttribute("placeholder", "Description of task");
 
     let inputDueDate = document.createElement("input"); 
     inputDueDate.setAttribute("type", "date");
     inputDueDate.setAttribute("name", "inputDueDate");
-    inputDueDate.setAttribute("id", "inputDueDate");
-    inputDueDate.setAttribute("class", "taskForm");
+    inputDueDate.setAttribute("id", "inputDueDate" + index);
     inputDueDate.setAttribute("placeholder", "Due Date");
 
     let submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("name", "submit");
-    submit.setAttribute("id", "submit");
-    submit.setAttribute("class", "taskForm");
+    submit.setAttribute("id", "submit" + index);
     submit.setAttribute("class", "submit");
     submit.setAttribute("value", "Submit")
     submit.addEventListener('click', () => {
-        formDataToTask();
+        formDataToTask(form, index, item);
+        closeTaskForm(index);
         });
+
+    let close = document.createElement("button");
+    close.setAttribute("id", "close" + index);
+    close.setAttribute("class", "close");
+    close.textContent = "X";
+    close.addEventListener('click', () => {
+        event.preventDefault();
+        closeTaskForm(index);
+    });
+    form.appendChild(close);    
+    form.appendChild(heading);
     form.appendChild(inputTitle);
-    form.appendChild(inputProjectLabel);
-    form.appendChild(inputProject);
     form.appendChild(inputDescription);
     form.appendChild(inputDueDate);
-    form.appendChild(inputPriorityLabel);   
-    form.appendChild(inputPriority);
-    form.appendChild(submit)
-
-    document.getElementById("formsDiv").appendChild(form);
+    priorityDiv.appendChild(inputPriorityLabel);   
+    priorityDiv.appendChild(inputPriority);
+    form.appendChild(priorityDiv);
+    form.appendChild(submit);
+    cont.style.display = "none";
+    cont.appendChild(form);
 };
 
 

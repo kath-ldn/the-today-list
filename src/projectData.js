@@ -27,14 +27,13 @@ function getSampleData(){
             if (doc.exists) {
                 let storedProjects = ("Document data:", doc.data().projects);
                 projects = storedProjects;
-                console.log(projects);
                 displayProjectDivs();
                 createSampleTasks();
             } else {
                 console.log("no such document");
             }
         }).catch((error) => {
-            console.log("Error getting document:", error);
+            console.log("Error getting document 2 :", error);
         });   
     }
 };
@@ -62,6 +61,6 @@ function createSampleData(){
             console.error("Error adding document: ", error);
         })
     }
-}
+};
 
 export { tasks, projects, createSampleData }

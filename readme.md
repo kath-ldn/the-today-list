@@ -20,3 +20,24 @@ For next versions:
 - Delete-all button.
 - Align PP with modal styles.
 - New Date for sample task - make it in future (or else reads 'Due: 0 seconds ago' and is a bit alarming.)
+- data not passed in best way - to revisit
+-revisit all code [add as known issue] - newish to firebase
+-edit project submit glitch - not center
+-grid issue - i guess only with empty projects tho
+---could hav max items and set span manually
+-remove yellow color
+
+trash icon
+Ayub Irawan iconfinder
+
+pen icon
+Umar Irshad  iconfinder
+accessibility - image alts, hover
+
+get rid of clashes with priority
+
+priority a circle dot next to name ??
+
+consistency between edit and new task
+
+need to double click add priject for some  reason
