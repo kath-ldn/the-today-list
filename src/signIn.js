@@ -27,6 +27,7 @@ function signIn() {
       var credential = error.credential;
       // ...
     });
+
 }
 
 function makeSignInBtn(){

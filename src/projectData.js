@@ -1,8 +1,9 @@
 
 import firebase from "firebase/app";
 import { db } from './index.js';
-import { addTaskToArray, CreateTask, displayProjectDivs } from './createTasks.js';
-import { restoreData, restoreProjects, restoreTasks } from "./restoreData.js";
+import { displayProjectDivs } from './addRmvProjs.js';
+import { CreateTask, addTaskToArray } from './addRmvTasks.js';
+import { restoreData } from "./restoreData.js";
 
 //array to hold projects
 let projects = [];
@@ -10,10 +11,13 @@ let projects = [];
 //array to hold task objects
 let tasks = [];
 
+let currentTaskIndex = '';
+
+let currentTaskDiv = '';
 
 function createSampleTasks(){
     let sampleTask = new CreateTask('0000001', 'A Sample Task', 'Sample Project', 'To complete this Sample Task', new Date(), 'Medium')
-    addTaskToArray(sampleTask);
+    addTaskToArray(sampleTask, '0');
 };
 
 //pretty much identical to restoreProject aside from callback - must be better way
@@ -30,10 +34,10 @@ function getSampleData(){
                 displayProjectDivs();
                 createSampleTasks();
             } else {
-                console.log("no such document");
+                console.log("no user data");
             }
         }).catch((error) => {
-            console.log("Error getting document 2 :", error);
+            console.log("Error getting user data:", error);
         });   
     }
 };
@@ -47,10 +51,9 @@ function createSampleData(){
         let projArray = db.collection("users").doc(uid);
         projArray.get().then((doc) => {
             if(doc.exists) {
-                console.log("Documents Exist", doc.data())
                 restoreData()
                 } else {
-                    console.log("No such document. Creating document...");
+                    console.log("No such user data. Creating user data...");
                     projArray.set({
                         projects: ['Sample Project']
                     })
@@ -58,9 +61,9 @@ function createSampleData(){
                 }
             })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            console.error("Error adding user datat: ", error);
         })
     }
 };
 
-export { tasks, projects, createSampleData }
+export { tasks, projects, createSampleData, currentTaskIndex, currentTaskDiv }

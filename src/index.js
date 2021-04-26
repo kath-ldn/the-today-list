@@ -1,6 +1,6 @@
 // *** MODULE CREATES OVERALL PAGE STRUCTURE AND RESTORES LOCAL DATA *** //
 import { pageStructure } from './pageStructure.js';
-
+import { previewPage, hidePreviewPage } from './previewPage.js';
 // *** FIREBASE IMPORTS *** //
 // Firebase App (the core Firebase SDK) is always required and must be listed first
 import firebase from "firebase/app";
@@ -38,6 +38,7 @@ firebase.auth().onAuthStateChanged((user) => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         var uid = user.uid;
+        hidePreviewPage();
         document.getElementById("signInButton").style.display = "none";
         makeSignOutBtn();
         updateUserDetails();
@@ -46,6 +47,7 @@ firebase.auth().onAuthStateChanged((user) => {
       // ...
     } else {
         document.getElementById("plusProject").style.display = "none";
+        previewPage();
     }
 }); 
   

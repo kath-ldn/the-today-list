@@ -1,43 +1,85 @@
-*** TODAYLIST README ***
-v2.0 - Firebase Integration
-In this version:
-- Integrated Firebase
+# The Today List - V3.0
 
+## About
 
-For next versions:
-- Most importantly - refactor code. It is still verbose and repetitive (esp. Firebase).
-- Continue to refine UI/UX
-- Add useful info to projects when closed - how many tasks, how many high priority tasks.
-- Add button to collapse/ shrink the header/sidebar (narrow it to the side - add keyframes). Text and Div size using classnames - everything else should be responsive enough.
-- Add ability to change category.
-- Add some variation in colors (project boxes?).
-- Make responsive for different screen sizes - including min and max widths.
-- Colour coordinate to distinguish between projects/tasks
-    - E.g. 'new project' lighter and matching project background color.
-- Intro bubbles to show how to use.
-- 'Are you sure' pop-ups for deleting things.
-- Use icons instead of edit and delete task.
-- Delete-all button.
-- Align PP with modal styles.
-- New Date for sample task - make it in future (or else reads 'Due: 0 seconds ago' and is a bit alarming.)
-- data not passed in best way - to revisit
--revisit all code [add as known issue] - newish to firebase
--edit project submit glitch - not center
--grid issue - i guess only with empty projects tho
----could hav max items and set span manually
--remove yellow color
+The Today List is a lightweight project management app. It allows the user to track their projects and tasks within those projects, prioritise these, and add/remove as needed.
 
-trash icon
-Ayub Irawan iconfinder
+The Today List allows the user to sign in and store their data using their Google account, via Firebase.
 
-pen icon
-Umar Irshad  iconfinder
-accessibility - image alts, hover
+The today list is in a Beta phase! This means there may be bugs/issues. Please let me know if you find any.
 
-get rid of clashes with priority
+### Live Site
 
-priority a circle dot next to name ??
+The Today List can be found [here](https://the-today-list.web.app/).
 
-consistency between edit and new task
+### Demo
 
-need to double click add priject for some  reason
+[To add screenshot]
+
+### Built with
+
+* HTML
+* CSS
+* Javascript
+* Webpack
+* Firebase
+
+## Prerequisites & Installation
+
+If you would like to run a local copy of The Today List, you will need:
+* Webpack;
+* A package manager such as Node;
+* A Firebase account.
+
+## Usage
+
+To use The Today List, sign in with your Google account using the link provided.
+
+The today list is not yet mobile responsive - that will come in the next release. Therefore please use a laptop/desktop for best experience.
+
+## Contributing
+
+Contributions are welcome and appreciated, for any significant changes - please open an issue first.
+
+## Licence
+
+Copyright (c) 2021 Kath Turner
+
+## Contact
+Kath Turner - Twitter @kath_ldn - kath.develops@gmail.com
+
+## Roadmap
+
+For the next version of the Today List I will:
+* Make responsive to mobile/other devices.
+* Refactor code - some areas where I'd like to make it more modular and less repetitive/verbose.
+    * Continue to revisit control flow/how data moves through functions, and see where can simplify.
+    * Check props for consistency - e.g. index means multiple things in different functions and can be confusing.
+* Add useful info to projects when closed - how many tasks, how many 'high priority' tasks.
+* Add variation in colors and check all colors used for accessibility.
+* Check all elements for accessibility.
+* Improve the preview page - currently just a screenshot - make a DIV/interactive.
+* Add 'are you sure' popups for deleting things.
+* Add a 'clear all projects' button.
+* See where else can use icons/symbols instead of text - e.g. could priority be a coloured dot instead of text?
+* Add privacy policy dynamically.
+* See how can guide user through journey.
+* Think about interactivity - animations, transitions (subtle).
+* Loaders for signing in and out.
+* Add dark/light modes.
+* Webpack performance recommendations.
+* Check styles and try to 'break' -  e.g. when adding long titles/descriptions.
+
+### Known Issues
+
+* In './addRmvTasks.js, -208: makeTaskDivs / -225: makeNewTaskDiv - these functions are 95% the same. This was a workaround that fixed a bug whereby if a user deleted a project then tried to add a project to a project that followed the deleted project, the app would not identify the correct parent container. To refactor the 'add task' pathway to reduce duplication.
+
+## Acknowledgements
+
+* Google
+* Firebase
+* Git / GitHub
+* CSS Tricks
+* Webpack
+* [Ayub Irawan via Iconfinder](https://www.iconfinder.com/Ayub_Irawan)
+* [Umar Irshad via Iconfinder](https://www.iconfinder.com/Umar)

@@ -1,9 +1,8 @@
 // *** MODULE HANDLES FIREBASE STORAGE *** //
-import { projects } from './createTasks.js';
-import { tasks } from './createTasks.js';
-import { displayAllTasks } from './createTasks.js';
-import { displayProjectDivs } from './createTasks.js';
+import { displayProjectDivs } from './addRmvProjs.js';
+import { displayAllTasks } from './addRmvTasks.js';
 import { db } from './index.js';
+import { projects, tasks } from './projectData.js'
 import firebase from "firebase/app";
 
 //function ensures compatability with stored and displayed dates
@@ -25,10 +24,10 @@ function restoreProjects(){
                 projects = storedProjects;
                 displayProjectDivs();
             } else {
-                console.log("no such document");
+                console.log("no user data");
             }
         }).catch((error) => {
-            console.log("Error getting document 3:", error);
+            console.log("Error getting user data:", error);
         });   
     }
 };
@@ -48,7 +47,7 @@ function restoreTasks(){
             displayAllTasks();
         })
         .catch((error) => {
-            console.log("Error getting documents 4: ", error)
+            console.log("Error getting user data: ", error)
         });
     }
 };

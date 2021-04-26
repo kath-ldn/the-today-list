@@ -1,12 +1,11 @@
-import { getHelpfulDate, priorities } from './createTasks.js';
-import { tasks } from './projectData';
+import { getHelpfulDate, priorities } from './addRmvTasks.js';
+import { tasks, currentTaskIndex, currentTaskDiv } from './projectData';
 import firebase from "firebase/app";
 import { db } from './index.js';
 
-//refactor this - when remove global object stored here, will remove lots of this code
-function editTaskObject(objectLoc){
+/* Edits task in array and updates Firebase */
+function editTaskObject(task){
     let editForm = document.getElementById("editForm");
-    let task = tasks[objectLoc];
     if (editForm.editTitle.value !== "") {
         task.title = editForm.editTitle.value;
     };
@@ -16,10 +15,10 @@ function editTaskObject(objectLoc){
     if (editForm.editDueDate.value !== "") {
         task.dueDate = new Date(editForm.editDueDate.value);
     } else {
-        let date = new Date(tasks[objectLoc].dueDate)
+        let date = new Date(task.dueDate)
         task.dueDate = date;
     }
-    task.priority = editForm.editPriority.value;
+    task.priority = editForm.editTaskPriority.value;
     
     let user = firebase.auth().currentUser;
     let uid;
@@ -32,7 +31,7 @@ function editTaskObject(objectLoc){
             "priority": task.priority
         })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            console.error("Error editing task: ", error);
         });
     }
     
@@ -40,31 +39,51 @@ function editTaskObject(objectLoc){
     editForm.reset();
 };
 
-function editTaskDivs(item, index, objectLoc){
-    let editTitle = document.getElementById("title" + index);
-    editTitle.textContent = tasks[objectLoc].title;
-    let editdescription = document.getElementById("description" + index);
-    editdescription.textContent = tasks[objectLoc].description;
+/* Edits task elements on page - index here refers to original DIV id/index */
+function editTaskElement(identi, index, item){
+    let element = document.getElementById(identi + index);
+    element.textContent = item[identi];
+};
+
+function editDate(index, item){
     let editDueDate = document.getElementById("dueDate" + index);
-    let newdueDate = new Date(tasks[objectLoc].dueDate);
-    editDueDate.textContent = newdueDate.toDateString();
     let helpfulDateDiv = document.getElementById("helpfulDateDiv" + index);
+    let newdueDate = new Date(item.dueDate);
+    editDueDate.textContent = newdueDate.toDateString();
     let helpfulDate = getHelpfulDate(newdueDate);
     helpfulDateDiv.textContent = helpfulDate[0];
     helpfulDateDiv.setAttribute("class", helpfulDate[1]);  
-    let editPriority = document.getElementById("priority" + index);
-    editPriority.textContent = tasks[objectLoc].priority;
-    let priorityClass = item.priority.toString();
-    priorityClass = priorityClass.replace(/\s/g, '');
-    editPriority.setAttribute("class", priorityClass);
-    editPriority.classList.add("priority");
 };
 
-function editTask(item, index) {
-    let objectLoc = tasks.indexOf(item);
+function updatePriorityClass(item, index){
+    let priorityClass = item.priority.toString();
+    priorityClass = priorityClass.replace(/\s/g, '');
+    let editPriorityDiv = document.getElementById("priority" + index)
+    editPriorityDiv.setAttribute("class", priorityClass);
+    editPriorityDiv.classList.add("priority");
+};
+
+function editTaskDivs(item, index){
+    editTaskElement("title", index, item);
+    editTaskElement("description", index, item);
+    editDate(index, item);
+    editTaskElement("priority", index, item);
+    updatePriorityClass(item, index, item);
+};
+
+function hideModal() {
+    let modal = document.getElementById("editTaskModal");
+    modal.style.display = "none";
+};
+
+function editTask(event) {
     event.preventDefault();
-    editTaskObject(objectLoc);
-    editTaskDivs(item, index, objectLoc);
+    let divID = currentTaskDiv;
+    let index = currentTaskIndex;
+    let item = tasks[index];
+    editTaskObject(item);
+    editTaskDivs(item, divID);
+    hideModal();
 };
 
 function updatePriority(task){
@@ -76,27 +95,25 @@ function updatePriority(task){
             "priority": task.priority
         })
         .catch((error) => {
-            console.error("Error adding document: ", error);
+            console.error("Error updating priority: ", error);
         });
     }
-}
+};
 
 function changePriority(item, priorityBtn) {
     let priorityIndex = priorities.indexOf(item.priority);
     if(priorityIndex === 4) {
         item.priority = priorities[0];
         priorityBtn.setAttribute("class", priorities[0]);
-        priorityBtn.classList.add("priority");
-        updatePriority(item);
         priorityBtn.textContent = priorities[0];
     } else {
         let newIndex = priorities[priorityIndex + 1];
         priorityBtn.setAttribute("class", newIndex)
-        priorityBtn.classList.add("priority");
         item.priority = newIndex;
-        updatePriority(item);
         priorityBtn.textContent = newIndex; 
     }
+    priorityBtn.classList.add("priority");
+    updatePriority(item);
  };
 
  export { editTask, changePriority }

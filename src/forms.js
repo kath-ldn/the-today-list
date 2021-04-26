@@ -1,8 +1,9 @@
-// *** MODULE MAKES AND DISPLAYS NEW project AND task FORMS *** //
-import { priorities, newProject, formDataToTask, toggleDisplay } from './createTasks.js';
+import { newProject } from './addRmvProjs.js';
+import { priorities } from './addRmvTasks.js'
+import { formDataToTask } from './addRmvTasks';
+import { toggleDisplay } from './helpers.js';
 
 // form to add new project
-//delete any classes and IDs not being used
 function makeProjectForm() {
     let newProjectForm = document.createElement("form");
     newProjectForm.setAttribute("name", "newProjectForm");
@@ -26,6 +27,7 @@ function makeProjectForm() {
     submitProject.addEventListener('click', () => {
         newProject();
         toggleDisplay(newProjectForm);
+        inputNewProject.value = null;
         });
 
     document.getElementById("formsDiv").appendChild(newProjectForm);
@@ -33,9 +35,8 @@ function makeProjectForm() {
     newProjectForm.appendChild(submitProject);
 };
 
-//annoying workaround as closing was very glitchy
+//Closes new task form and replaces with 'add task' text (think this duplicates toggleflexform - to revisit)
 function closeTaskForm(i){
-    console.log(i);
     let taskFormContainer = document.getElementById("taskFormContainer" + i);
     taskFormContainer.style.display = "none";
     let plusTask = document.getElementById("plusTask" + i);
@@ -43,7 +44,7 @@ function closeTaskForm(i){
 };
 
 // form to add new task
-function makeTaskForm(item, index, cont) {
+function makeTaskForm(index, cont, item) {
     let form = document.createElement("form");
     form.setAttribute("name", "taskForm");
     form.setAttribute("class", "taskForm");
