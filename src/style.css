@@ -104,6 +104,7 @@ button:hover{
     font-weight: bold;
     font-size: 18px;
     padding: 0;
+    cursor: pointer;
 }
 
 #formsDiv {
@@ -132,11 +133,19 @@ button:hover{
    background: none;
    border: none;
    height: 20px;
+}
+
+#newProjectForm .submit{
    color: white;
 }
 
+.taskForm .submit{
+    color:#7b57a5;
+ }
+
 .submit:hover{
     font-weight: bold;
+    cursor: pointer;
 }
 
 #userContainer {
@@ -167,6 +176,7 @@ button:hover{
 
 #signOutButton:hover, #signInButton:hover{
     font-weight: bold;
+    cursor: pointer;
 }
 
 /* Projects */
@@ -262,6 +272,7 @@ button:hover{
     width: 31px;
     height: 31px;
     margin: 3px;
+    cursor: pointer;
 }
 
 input {
