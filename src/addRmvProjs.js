@@ -43,7 +43,7 @@ function removeProject(index, project){
 };
 
 /* FUNCTIONS TO SHOW EXISTING PROJECTS */
-let colors = ["#ff6666","#777da7","#fcca46","#62bec1","#6eeb83","#48bf84","#3a2449","#2ec4b6","#a7cdbd"];
+let colors = ["#777da7", "#54a2a5", "#499da0", "#48bf84", "#3a2449", "#5f8173"];
 
 function getRandomColor(){
     let random = Math.floor(Math.random() * 10);

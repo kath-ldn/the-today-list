@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "the-today-list"
+    "default": "the-today-list",
+    "today-list": "the-today-list"
   }
 }

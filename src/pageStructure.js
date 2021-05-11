@@ -2,7 +2,7 @@ import { makeProjectForm } from './forms.js';
 import { editTaskModal } from './editTaskForm';
 import logoImg from './assets/images/logoImg.png';
 import { makeSignInBtn } from './signIn.js';
-import { privacy } from './privacy.js';
+import { createFooter } from './footer.js';
 import firebase from "firebase/app";
 import {toggleDisplay} from "./helpers.js"
 
@@ -64,7 +64,7 @@ function pageStructure() {
     //adds and hides forms
     makeProjectForm();
     editTaskModal();
-    privacy();
+    createFooter();
 };
 
 export { pageStructure }

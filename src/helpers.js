@@ -4,6 +4,11 @@ function toggleDisplay(element){
     (element.style.display === "none") ? element.style.display = "block" : element.style.display = "none";
 };
 
+function toggleGrid(elementId){
+    let element = document.getElementById(elementId);
+    (element.style.display === "none") ? element.style.display = "grid" : element.style.display = "none";
+};
+
 function toggleFlexForm(button, form){
     if(button.style.display === "none"){
         button.style.display = "block";
@@ -25,4 +30,12 @@ function findProjectDiv(object) {
     return parentProject;
 };
 
-export { toggleDisplay, toggleFlexForm, findProject, findProjectDiv }
+function removeChildrenAndParent(elementID){
+    let parent = document.getElementById(elementID);
+    while(parent.hasChildNodes()){
+        parent.removeChild(parent.firstChild)
+    }
+    parent.remove();
+};
+
+export { toggleDisplay, toggleFlexForm, findProject, findProjectDiv, removeChildrenAndParent, toggleGrid }
