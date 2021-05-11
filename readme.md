@@ -1,8 +1,8 @@
-# The Today List - V3.0
+# The Today List - V3.1
 
 ## About
 
-The Today List is a lightweight project management app. It allows the user to track their projects and tasks within those projects, prioritise these, and add/remove as needed.
+The Today List is a project/task management app. It allows the user to track their projects and tasks within those projects, prioritise these, and add/remove as needed.
 
 The Today List allows the user to sign in and store their data using their Google account, via Firebase.
 
@@ -56,14 +56,12 @@ For the next version of the Today List I will:
     * Continue to revisit control flow/how data moves through functions, and see where can simplify.
     * Check props for consistency - e.g. index means multiple things in different functions and can be confusing.
 * Add useful info to projects when closed - how many tasks, how many 'high priority' tasks.
-* Add variation in colors and check all colors used for accessibility.
+* Check all colors used for accessibility.
 * Check all elements for accessibility.
 * Improve the preview page - currently just a screenshot - make a DIV/interactive.
 * Add 'are you sure' popups for deleting things.
 * Add a 'clear all projects' button.
 * See where else can use icons/symbols instead of text - e.g. could priority be a coloured dot instead of text?
-* Add privacy policy dynamically.
-* See how can guide user through journey.
 * Think about interactivity - animations, transitions (subtle).
 * Loaders for signing in and out.
 * Add dark/light modes.
