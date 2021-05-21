@@ -57,7 +57,8 @@ body {
 
 #headerDiv {
     width: 100vw;
-    height: 150px;
+    min-height: 150px;
+    height: fit-content;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -65,6 +66,7 @@ body {
     border-bottom: 2px solid #7b57a5;
     background-color: #9368c4;
     color:white;
+    flex-wrap: wrap;
 }
 
 #logoImg {
@@ -181,22 +183,23 @@ button:hover{
 
 /* Projects */
 #container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: repeat(auto-fill, auto);
-    grid-auto-flow: dense;
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin-top: 15px;
+    width: 90vw;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Preview styles */
 
 #previewWrapper{
-    grid-column: 1 / 5;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 #previewImg{
@@ -240,6 +243,7 @@ button:hover{
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     box-sizing: border-box;
     padding: 10px;
+    margin: 10px;
 }
 
 .projHeader{
@@ -680,3 +684,14 @@ h3{
     line-height: 16px;
 }
 
+@media(max-width: 600px){
+    #headerDiv{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #headerDiv div, #headerDiv img, #headerDiv h1{
+        margin: 10px;
+    }
+}

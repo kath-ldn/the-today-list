@@ -51,7 +51,7 @@ Kath Turner - Twitter @kath_ldn - kath.develops@gmail.com
 ## Roadmap
 
 For the next version of the Today List I will:
-* Make responsive to mobile/other devices.
+* Make more responsive to mobile/other devices - currently v basic use of flexbox.
 * Refactor code - some areas where I'd like to make it more modular and less repetitive/verbose.
     * Continue to revisit control flow/how data moves through functions, and see where can simplify.
     * Check props for consistency - e.g. index means multiple things in different functions and can be confusing.
