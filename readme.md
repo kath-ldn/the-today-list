@@ -28,7 +28,7 @@ The Today List can be found [here](https://the-today-list.web.app/).
 
 If you would like to run a local copy of The Today List, you will need:
 * Webpack;
-* A package manager such as Node;
+* A package manager such as npm;
 * A Firebase account.
 
 ## Usage
