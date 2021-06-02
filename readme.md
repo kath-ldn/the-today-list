@@ -35,7 +35,7 @@ If you would like to run a local copy of The Today List, you will need:
 
 To use The Today List, sign in with your Google account using the link provided.
 
-The today list is not yet mobile responsive - that will come in the next release. Therefore please use a laptop/desktop for best experience.
+The today list is not yet 100% mobile responsive - that will come in the next release. Therefore please use a laptop/desktop for best experience.
 
 ## Contributing
 
