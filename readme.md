@@ -70,6 +70,7 @@ For the next version of the Today List I will:
 
 ### Known Issues
 
+* Bug: when close privacy policy flex box stays very narrow.
 * In './addRmvTasks.js, -208: makeTaskDivs / -225: makeNewTaskDiv - these functions are 95% the same. This was a workaround that fixed a bug whereby if a user deleted a project then tried to add a project to a project that followed the deleted project, the app would not identify the correct parent container. To refactor the 'add task' pathway to reduce duplication.
 
 ## Acknowledgements
